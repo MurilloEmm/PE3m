@@ -1,5 +1,6 @@
-package com.tutorial.shourov.firebaseauth;
+package com.tutorial.shourov.PE3FB;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,10 +17,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.tutorial.shourov.firebaseauth.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -34,8 +35,7 @@ public class SignupActivity extends AppCompatActivity {
     Button signInButton;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
-    @BindView(R.id.reset_button)
-    Button resetButton;
+
 
     private FirebaseAuth firebaseAuth;
 
@@ -43,18 +43,10 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        ButterKnife.bind(this);//using butterknife fot finding widgets
-        //click R.layout.activity_signup press alt + enter to generate
-
-        //firebase authentication instance
+        ButterKnife.bind(this);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SignupActivity.this.startActivity(new Intent(SignupActivity.this, ResetActivity.class));
-            }
-        });
+
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,12 +69,12 @@ public class SignupActivity extends AppCompatActivity {
         String userPassword = password.getText().toString().trim();
 
         if (TextUtils.isEmpty(userEmail)) {
-            showToast("Enter email address!");
+            showToast("Enter email address...");
             return;
         }
 
         if(TextUtils.isEmpty(userPassword)){
-            showToast("Enter Password!");
+            showToast("Enter Password...");
             return;
         }
 
@@ -103,7 +95,7 @@ public class SignupActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             SignupActivity.this.showToast("Authentication failed. " + task.getException());
                         } else {
-                            SignupActivity.this.startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                            SignupActivity.this.startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                             SignupActivity.this.finish();
                         }
                     }
